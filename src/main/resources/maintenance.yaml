@@ -1,0 +1,54 @@
+openapi: 3.0.2
+info:
+  title: Maintenance API
+  version: 1.0.0
+paths:
+  /maintenance/maintenances:
+    get:
+      tags:
+        - Maintenance
+      summary: Get a list of all maintenance records
+      description: This endpoint returns a list of all maintenance records.
+      operationId: getAllMaintenances
+      responses:
+        '200':
+          description: OK, Maintenance list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AllMaintenancesResponse'
+        '400':
+          description: Unable to retrieve the maintenance list.
+        '500':
+          description: Error not controlled.
+
+components:
+  schemas:
+    AllMaintenancesResponse:
+      type: object
+      properties:
+        maintenances:
+          $ref: '#/components/schemas/Maintenances'
+    Maintenances:
+      type: array
+      items:
+        $ref: '#/components/schemas/Maintenance'
+    Maintenance:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Maintenance identifier
+          example: 67f49977-bb5e-48be-8dd1-7fa411228b2a
+          readOnly: true
+        description:
+          type: string
+          description: Maintenance description
+          example: Oil change
+        date:
+          type: string
+          format: date
+          description: Maintenance date
+          example: 2023-09-12
+
+
